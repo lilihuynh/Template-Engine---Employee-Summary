@@ -100,6 +100,60 @@ class Team {
             }
         })
     }
+    
+    //promt questions for Engineer
+    engineerQuestions() {
+        return inquirer.prompt([
+            {
+                type: "input",
+                message: "What is your Engineer's name?",
+                name: "engineerName",
+
+            },
+
+            {
+                type: "input",
+                message: "What is your engineer's ID?",
+                name: "engineerID",
+                validate: (userID) => {
+                    if (ID.indexOf(userID) === -1) {
+                        return true;
+                    }
+                    console.log("This ID is already exist");
+                    return engineerQuestions();
+                }
+
+            },
+
+            {
+                type: "input",
+                message: "What is your engineer's email?",
+                name: "engineerEmail",
+
+            },
+
+            {
+                type: "input",
+                message: "What is your engineer's GitHub username?",
+                name: "engineerGitHub",
+
+            },
+
+
+        ]).then(response => {
+
+            const newEngineer = new Engineer(response.engineerName, response.engineerID, response.engineerEmail, response.engineerGitHub);
+            ID.push(response.engineerID);
+
+            //push new engineer to employee array
+            employees.push(newEngineer);
+
+            //then running prompt function to add member
+
+            this.membersRole();
+
+        })
+    }
 }
 const newTeam = new Team();
 newTeam.managerQuestions();
