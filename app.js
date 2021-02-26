@@ -100,7 +100,7 @@ class Team {
             }
         })
     }
-    
+
     //promt questions for Engineer
     engineerQuestions() {
         return inquirer.prompt([
@@ -147,6 +147,59 @@ class Team {
 
             //push new engineer to employee array
             employees.push(newEngineer);
+
+            //then running prompt function to add member
+
+            this.membersRole();
+
+        })
+    }
+
+    //prompt questions for Intern
+    internQuestions() {
+        return inquirer.prompt([
+            {
+                type: "input",
+                message: "What is your intern's name?",
+                name: "interName",
+
+            },
+
+            {
+                type: "input",
+                message: "What is your intern's ID?",
+                name: "internID",
+                validate: (userID) => {
+                    if (ID.indexOf(userID) === -1) {
+                        return true;
+                    }
+                    console.log("This ID is already exist");
+                    return internQuestions();
+                }
+            },
+
+            {
+                type: "input",
+                message: "What is your intern's email?",
+                name: "internEmail",
+
+            },
+
+            {
+                type: "input",
+                message: "What is your intern's school?",
+                name: "internSchool",
+
+            },
+
+
+        ]).then(response => {
+
+            const newIntern = new Intern(response.interName, response.internID, response.internEmail, response.internSchool);
+            ID.push(response.internID);
+
+            //push new intern to employee array
+            employees.push(newIntern);
 
             //then running prompt function to add member
 
