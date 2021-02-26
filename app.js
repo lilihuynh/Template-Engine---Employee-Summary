@@ -69,6 +69,37 @@ class Team {
 
         })
     };
+
+    //promt questions to add team members
+    membersRole() {
+        return inquirer.prompt([
+            {
+                type: "list",
+                message: "Which type of team member would you like to add?",
+                name: "role",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    "I don't want to add any more team members"
+                ]
+            }
+        ]).then(response => {
+            switch (response.role) {
+                case "Engineer":
+                    this.engineerQuestions();
+                    break;
+
+                case "Intern":
+                    this.internQuestions();
+                    break;
+
+                case "I don't want to add any more team members":
+                    this.end();
+                    console.log(employees)
+
+            }
+        })
+    }
 }
 const newTeam = new Team();
 newTeam.managerQuestions();
