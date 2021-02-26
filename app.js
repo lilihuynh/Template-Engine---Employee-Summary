@@ -207,6 +207,21 @@ class Team {
 
         })
     }
+
+    //when user does not want to add more members
+    end() {
+        const newMemberFile = render(employees);
+        fs.writeFile(outputPath, newMemberFile, function (err) {
+
+            if (err) {
+                return console.log(err);
+            }
+
+            console.log("Success!");
+
+        });
+    }
+
 }
 const newTeam = new Team();
 newTeam.managerQuestions();
